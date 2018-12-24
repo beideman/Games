@@ -1,0 +1,55 @@
+import pygame
+
+pygame.init()
+display_width = 800
+display_height = 600
+
+gameDisplay = pygame.display.set_mode((display_width,display_height))
+pygame.display.set_caption('An Amy-zing game')
+
+clock = pygame.time.Clock()
+
+crashed = False
+happy = pygame.image.load('happy.png')
+
+black = (0,0,0)
+white = (255,255,255)
+
+def smile(x,y):
+    gameDisplay.blit(happy, (x,y))
+
+x =  (display_width * 0.45)
+y = (display_height * 0.8)
+
+while not crashed:
+    x_change =0
+    y_change =0
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            crashed = True
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_LEFT:
+        #         x_change = -5
+        #     elif event.key == pygame.K_RIGHT:
+        #         x_change = 5
+        # if event.type == pygame.KEYUP:
+        #     if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+        #         x_change = 0
+        print(event)
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        x_change = -5
+    if keys[pygame.K_RIGHT]:
+        x_change = 5
+    if keys[pygame.K_UP]:
+        y_change = -5
+    if keys[pygame.K_DOWN]:
+        y_change = 5
+
+    x += x_change
+    y += y_change
+
+    gameDisplay.fill(white)
+    smile(x, y)
+    pygame.display.update()
+    clock.tick(60)
